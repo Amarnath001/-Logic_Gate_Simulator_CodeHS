@@ -24,7 +24,7 @@ This project was part of the CodeHS Summer 2025 Internship Challenge.
 Originally intended for Bool.com, it was adapted manually using traditional web technologies due to platform credit limitations — demonstrating resourcefulness, problem-solving, and technical depth.
 
 ## 🚀 Live Demo
-[Watch Demo Video on Loom](https://your-loom-link.com)
+[Watch Demo Video on Loom](https://www.loom.com/share/1cb9fb42b52a42afb60a5eba5a0e4ac4)
 
 ## 📚 Educational Goals
 - Teach core computer science concepts (AND, OR, NOT logic gates).
