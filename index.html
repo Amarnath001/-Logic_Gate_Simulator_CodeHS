@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic Gate Learning Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <div id="level-info">
+      <h2 id="level-title">Level 1: The AND Gate</h2>
+      <p id="level-instructions">Make the light turn ON only when both switches are ON. Use the AND gate.</p>
+    </div>
+
+    <div id="controls">
+      <h3>Select Gate:</h3>
+      <button class="gate-button" data-gate="AND">AND</button>
+      <button class="gate-button" data-gate="OR" disabled>OR</button> 
+      <button class="gate-button" data-gate="NOT" disabled>NOT</button> 
+      <button class="gate-button" data-gate="WIRE">WIRE</button>
+      <button class="gate-button" data-gate="ERASE">ERASE</button>
+      <button id="run-button">Run Simulation</button>
+    </div>
+
+    <div id="grid-container">
+      <!-- Grid generated dynamically -->
+    </div>
+
+    <div id="output-area">
+      <h3>Inputs</h3>
+      <div id="input-switches"></div>
+
+      <h3>Outputs</h3>
+      <div id="output-lights">
+        <div class="light" id="light-0"></div>
+      </div>
+    </div>
+
+    <div id="message-area">
+      <p id="feedback-message"></p>
+      <!-- Reset and Next Level buttons will be injected here -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

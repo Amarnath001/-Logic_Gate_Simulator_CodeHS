@@ -1,0 +1,271 @@
+/* === CSS Variables === */
+:root {
+    /* Colors */
+    --gate-and: #87CEEB;
+    --gate-or: #90EE90;
+    --gate-not: #F08080;
+    --success-green: #4CAF50;
+    --error-red: #ff0000;
+    --bg-color: #f0f0f0;
+    --container-bg: #ffffff;
+    --grid-line: #ccc;
+
+    --grid-cell-size: 40px;
+    --grid-cell-size-mobile: 30px;
+
+    /* Spacing */
+    --base-padding: 20px;
+    --gap-sm: 10px;
+    --gap-md: 15px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+}
+
+/* === Base Styles === */
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding-top: var(--base-padding);
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--container-bg);
+    padding: var(--base-padding);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+    contain: layout;
+    /* Performance optimization */
+}
+
+/* === Controls === */
+#controls {
+    margin-bottom: var(--base-padding);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    align-items: center;
+    justify-content: center;
+}
+
+.gate-button,
+#run-button {
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid var(--grid-line);
+    border-radius: 4px;
+    background-color: #e9e9e9;
+    transition:
+        background-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.gate-button:focus,
+#run-button:focus {
+    outline: 2px solid var(--success-green);
+    outline-offset: 2px;
+}
+
+.gate-button.selected {
+    background-color: #a0a0a0;
+    font-weight: 600;
+}
+
+#run-button {
+    background-color: var(--success-green);
+    color: white;
+    border: none;
+    padding: 8px 25px;
+}
+
+#run-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* === Grid System === */
+#grid-container {
+    display: grid;
+    grid-gap: 1px;
+    background-color: var(--grid-line);
+    border: 1px solid var(--grid-line);
+    margin-bottom: var(--base-padding);
+    grid-template-columns: repeat(auto-fill, minmax(var(--grid-cell-size), 1fr));
+    /* Performance optimization */
+}
+
+.grid-cell {
+    background-color: var(--container-bg);
+    width: var(--grid-cell-size);
+    height: var(--grid-cell-size);
+    display: flex;
+    aspect-ratio: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    will-change: background-color;
+    /* Optimization */
+}
+
+.grid-cell:empty::after {
+    content: "⬌";
+    opacity: 0.3;
+    color: var(--grid-line);
+}
+
+/* Gate Colors */
+.grid-cell.gate-AND {
+    background-color: var(--gate-and);
+}
+
+.grid-cell.gate-OR {
+    background-color: var(--gate-or);
+}
+
+.grid-cell.gate-NOT {
+    background-color: var(--gate-not);
+}
+
+/* Input/Output Cells */
+.grid-cell.input,
+.grid-cell.output {
+    background-color: #e0e0e0;
+    cursor: default;
+    font-weight: 600;
+}
+
+.grid-cell.input::before {
+    content: 'IN';
+}
+
+.grid-cell.output::before {
+    content: 'OUT';
+}
+
+/* Wire Styling */
+.grid-cell.wire::before {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 25%;
+    background-color: currentColor;
+    border-radius: 2px;
+}
+
+/* === Visual Feedback === */
+.light {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #555;
+    border: 2px solid #333;
+    transition:
+        background-color var(--transition-medium),
+        box-shadow var(--transition-medium);
+}
+
+.light.on {
+    background-color: var(--success-green);
+    box-shadow: 0 0 10px var(--success-green);
+}
+
+.light.fail {
+    background-color: var(--error-red);
+    box-shadow: 0 0 10px var(--error-red);
+}
+
+/* === Message System === */
+#feedback-message {
+    font-weight: 600;
+    text-align: center;
+    min-height: 24px;
+    padding: 5px var(--base-padding);
+    border-radius: 4px;
+}
+
+#feedback-message.success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success-green);
+}
+
+#feedback-message.error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: var(--error-red);
+}
+
+/* === Mobile Responsiveness === */
+@media (max-width: 600px) {
+    #grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(var(--grid-cell-size-mobile), 1fr));
+    }
+
+    .grid-cell {
+        width: var(--grid-cell-size-mobile);
+        height: var(--grid-cell-size-mobile);
+    }
+
+    #controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .gate-button,
+    #run-button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (hover: hover) {
+    .gate-button:hover {
+        background-color: #dfdfdf;
+    }
+}
+/* === Buttons inside message area === */
+#message-area button {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid var(--grid-line);
+    border-radius: 4px;
+    background-color: #e9e9e9;
+    transition: background-color var(--transition-fast);
+}
+
+#message-area button:hover {
+    background-color: #d0d0d0;
+}
+
+/* === Switch Button Styling === */
+.switch-btn {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 1em;
+    border: 1px solid var(--grid-line);
+    border-radius: 4px;
+    background-color: #ddd;
+    transition: background-color var(--transition-fast);
+    cursor: pointer;
+  }
+  
+  .switch-btn.active {
+    background-color: var(--success-green);
+    color: white;
+  }
